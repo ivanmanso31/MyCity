@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyCity</string>
+    <string name="categories">Categories</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="detail">Detail</string>
+    <string name="back">Back</string>
+</resources>
