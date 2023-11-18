@@ -110,7 +110,7 @@ private fun RecomendacionesListImageItem(recomendacion: Recomendaciones, modifie
         modifier = modifier
     ) {
         Image(
-            painter = painterResource(recomendacion.imageResourceId),
+            painter = painterResource(recomendacion.imagen),
             contentDescription = null,
             alignment = Alignment.Center,
             contentScale = ContentScale.FillWidth

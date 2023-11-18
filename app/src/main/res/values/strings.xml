@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">MyCity</string>
-    <string name="categories">Categories</string>
-    <string name="recommendations">Recommendations</string>
-    <string name="detail">Detail</string>
+    <string name="categories">Categorias</string>
+    <string name="recommendations">Recomendaciones</string>
+    <string name="detail">Detalle</string>
     <string name="back">Back</string>
+    <string name="hoteles">Hoteles</string>
+    <string name="ritz">Ritz</string>
+    <string name="detalles">detalles</string>
+    <string name="museos">Museos</string>
+    <string name="restaurantes">Restaurantes</string>
+    <string name="monumentos">Monumentos</string>
+    <string name="ocio">Ocio</string>
 </resources>

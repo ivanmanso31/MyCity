@@ -58,7 +58,7 @@ fun DetailsScreen(
             Box {
                 Box {
                     Image(
-                        painter = painterResource(selectedRecomendacion.sportsImageBanner),
+                        painter = painterResource(selectedRecomendacion.imagen),
                         contentDescription = null,
                         alignment = Alignment.TopCenter,
                         contentScale = ContentScale.FillWidth,

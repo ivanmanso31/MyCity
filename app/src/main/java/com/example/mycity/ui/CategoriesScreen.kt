@@ -89,14 +89,6 @@ private fun CategoriasListItem(
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = dimensionResource(R.dimen.card_text_vertical_space))
                 )
-                Spacer(Modifier.weight(1f))
-                Text(
-                    text = stringResource(categoria.subtitleResourceId),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.secondary,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 3
-                )
             }
         }
     }
@@ -110,7 +102,7 @@ private fun CategoriasListImageItem(categoria: Categorias, modifier: Modifier = 
         modifier = modifier
     ) {
         Image(
-            painter = painterResource(categoria.imageResourceId),
+            painter = painterResource(categoria.imagen),
             contentDescription = null,
             alignment = Alignment.Center,
             contentScale = ContentScale.FillWidth
