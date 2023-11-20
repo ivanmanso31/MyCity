@@ -1,6 +1,10 @@
 package com.example.mycity.ui
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -10,6 +14,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.mycity.R
+import com.example.mycity.utils.MyCityContenType
 
 enum class MyScreens(@StringRes val title: Int){
     Categories(title = R.string.categories),
@@ -32,13 +38,23 @@ enum class MyScreens(@StringRes val title: Int){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyCityApp(){
+fun MyCityApp(
+    windowSize: WindowWidthSizeClass,
+){
     val viewModel: MyCityViewModel = viewModel()
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = MyScreens.valueOf(
         backStackEntry?.destination?.route ?: MyScreens.Categories.name
     )
+
+
+    val contentType = when (windowSize){
+        WindowWidthSizeClass.Compact,
+        WindowWidthSizeClass.Medium -> MyCityContenType.ListOnly
+        WindowWidthSizeClass.Expanded -> MyCityContenType.ListsAndDetail
+            else -> MyCityContenType.ListOnly
+    }
 
 
     Scaffold(
@@ -53,43 +69,49 @@ fun MyCityApp(){
         val uiStateCategorias by viewModel.uiStateCategorias.collectAsState()
         val uiStateRecomendaciones by viewModel.uiStateRecomendaciones.collectAsState()
 
-        NavHost(
-            navController = navController,
-            startDestination = MyScreens.Categories.name
-        ){
-            composable(route = MyScreens.Categories.name){
-                CategoriesScreen(
-                    categorias = uiStateCategorias.categoriasList,
-                    onClick = {
-                        viewModel.updateCurrentCategoria(it)
-                        viewModel.updateRecomendacionesList(it.nombre)
-                        navController.navigate(MyScreens.Recommendations.name)
-                    },
-                    modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)),
-                    contentPadding = innerPadding
-                )
-            }
+        if(contentType == MyCityContenType.ListsAndDetail){
+            MyCityListAndDetail(uiStateCategorias, uiStateRecomendaciones, viewModel, innerPadding, modifier = Modifier.fillMaxWidth())
 
-            composable(route = MyScreens.Recommendations.name){
-                RecommendationsScreen(
-                    recomendaciones = uiStateRecomendaciones.recomendacionesList,
-                    onClick= {
-                        viewModel.updateCurrentRecomendacion(it)
-                        navController.navigate(MyScreens.Detail.name)
-                    },
-                    modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)),
-                    contentPadding = innerPadding
-                )
-            }
+        }
+        else{
+            NavHost(
+                navController = navController,
+                startDestination = MyScreens.Categories.name
+            ) {
+                composable(route = MyScreens.Categories.name) {
+                    CategoriesScreen(
+                        categorias = uiStateCategorias.categoriasList,
+                        onClick = {
+                            viewModel.updateCurrentCategoria(it)
+                            viewModel.updateRecomendacionesList(it.nombre)
+                            navController.navigate(MyScreens.Recommendations.name)
+                        },
+                        modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)),
+                        contentPadding = innerPadding
+                    )
+                }
 
-            composable(route = MyScreens.Detail.name){
-                DetailsScreen(
-                    selectedRecomendacion = uiStateRecomendaciones.currentRecomendaciones,
-                    contentPadding = innerPadding,
-                    onBackPressed = {
-                        navController.navigate(MyScreens.Recommendations.name)
-                    }
-                )
+                composable(route = MyScreens.Recommendations.name) {
+                    RecommendationsScreen(
+                        recomendaciones = uiStateRecomendaciones.recomendacionesList,
+                        onClick = {
+                            viewModel.updateCurrentRecomendacion(it)
+                            navController.navigate(MyScreens.Detail.name)
+                        },
+                        modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)),
+                        contentPadding = innerPadding
+                    )
+                }
+
+                composable(route = MyScreens.Detail.name) {
+                    DetailsScreen(
+                        selectedRecomendacion = uiStateRecomendaciones.currentRecomendaciones,
+                        contentPadding = innerPadding,
+                        onBackPressed = {
+                            navController.navigate(MyScreens.Recommendations.name)
+                        }
+                    )
+                }
             }
         }
     }
@@ -126,4 +148,57 @@ fun MyCityAppBar(
         },
         modifier = modifier
     )
+}
+
+@Composable
+fun MyCityListAndDetail(
+    uiStateCategorias: CategoriasUiState,
+    uiStateRecomendaciones: RecomendacionesUiState,
+    viewModel: MyCityViewModel,
+    innerPadding: PaddingValues,
+    modifier: Modifier
+
+    ) {
+    Row {
+        Column (
+            modifier = Modifier
+                .fillMaxWidth(0.25f)
+        ){
+            CategoriesScreen(
+                categorias = uiStateCategorias.categoriasList,
+                onClick = {
+                    viewModel.updateCurrentCategoria(it)
+                    viewModel.updateRecomendacionesList(it.nombre)
+                },
+                modifier = modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)),
+                contentPadding = innerPadding
+            )
+        }
+
+        Column (
+            modifier = Modifier
+                .fillMaxWidth(0.35f)
+        ) {
+            RecommendationsScreen(
+                recomendaciones = uiStateRecomendaciones.recomendacionesList,
+                onClick = {
+                    viewModel.updateCurrentRecomendacion(it)
+                },
+                modifier = modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)),
+                contentPadding = innerPadding
+            )
+        }
+
+        Column{
+            DetailsScreen(
+                selectedRecomendacion = uiStateRecomendaciones.currentRecomendaciones,
+                contentPadding = innerPadding,
+                onBackPressed = {
+                }
+            )
+        }
+
+
+
+    }
 }
