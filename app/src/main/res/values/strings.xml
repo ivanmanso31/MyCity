@@ -11,4 +11,14 @@
     <string name="restaurantes">Restaurantes</string>
     <string name="monumentos">Monumentos</string>
     <string name="ocio">Ocio</string>
+    <string name="palace">Palace</string>
+    <string name="Lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis dui id magna blandit, quis sollicitudin nunc ornare. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer arcu nibh, varius vehicula sodales nec, bibendum eu urna. Praesent tempor libero ut justo efficitur mollis. Fusce mattis ut nisl a cursus. Ut aliquam, nisi vel blandit aliquam, lorem ipsum lacinia augue, sed imperdiet lorem libero sagittis dui. Pellentesque sed ante fringilla, tempus nibh vitae, congue elit.</string>
+    <string name="museo_del_prado">Museo del Prado</string>
+    <string name="museo_sorolla">Museo Sorolla</string>
+    <string name="casa_pepe">Casa Pepe</string>
+    <string name="el_rincon">El Rincon</string>
+    <string name="palacio_real">Palacio Real</string>
+    <string name="plaza_mayor">Plaza Mayor</string>
+    <string name="cine_el_primillo">Cine el primillo</string>
+    <string name="feria_las_golondrinas">Feria las golondrinas</string>
 </resources>

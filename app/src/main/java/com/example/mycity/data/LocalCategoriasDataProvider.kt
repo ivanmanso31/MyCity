@@ -16,22 +16,22 @@ object LocalCategoriasDataProvider {
             Categorias(
                 id = 2,
                 nombre = R.string.museos,
-                imagen = R.drawable.ic_launcher_foreground
+                imagen = R.drawable.museos
             ),
             Categorias(
                 id = 3,
                 nombre = R.string.restaurantes,
-                imagen = R.drawable.ic_launcher_foreground
+                imagen = R.drawable.restaurantes
             ),
             Categorias(
                 id= 4,
                 nombre = R.string.monumentos,
-                imagen = R.drawable.ic_launcher_foreground
+                imagen = R.drawable.monumentos
             ),
             Categorias(
                 id = 5,
                 nombre = R.string.ocio,
-                imagen = R.drawable.ic_launcher_foreground
+                imagen = R.drawable.ocio
             )
         )
     }

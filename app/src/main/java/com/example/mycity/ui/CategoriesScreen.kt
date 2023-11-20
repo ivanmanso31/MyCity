@@ -105,7 +105,8 @@ private fun CategoriasListImageItem(categoria: Categorias, modifier: Modifier = 
             painter = painterResource(categoria.imagen),
             contentDescription = null,
             alignment = Alignment.Center,
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.FillBounds,
+
         )
     }
 }
